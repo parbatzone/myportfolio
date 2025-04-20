@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBot Security - Discord Bot Developer & Cybersecurity Specialist</title>
+    <style>
+        html {
+    scroll-behavior: smooth;
+  }
+        :root {
+            --primary: #7289DA; /* Discord color */
+            --secondary: #2C2F33;
+            --dark: #23272A;
+            --light: #ffffff;
+            --accent: #43B581; /* Discord online color */
+            --danger: #F04747; /* Discord error color */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        
+        nav {
+            background-color: var(--secondary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(35, 39, 42, 0.9), rgba(35, 39, 42, 0.7)), url('/api/placeholder/1200/800') center/cover;
+            background-attachment: fixed;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary);
+        }
+        
+        /* About Section */
+        section {
+            padding: 100px 0;
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Skills Section */
+        .skills {
+            background-color: var(--secondary);
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--dark);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 165, 206, 0.2);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-category h3 i {
+            margin-right: 10px;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li:before {
+            content: "→";
+            color: var(--accent);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .project-content p {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .project-links {
+            display: flex;
+        }
+        
+        .project-link {
+            padding: 8px 15px;
+            background-color: var(--accent);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .project-link:hover {
+            background-color: #3ca374;
+        }
+        
+        /* Services Section */
+        .services {
+            background-color: var(--secondary);
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--dark);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .service-card p {
+            color: #e0e0e0;
+        }
+        
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .blog-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .blog-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 20px;
+        }
+        
+        .blog-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .blog-content h3 {
+            margin-bottom: 10px;
+        }
+        
+        .blog-content p {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more span {
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+        
+        .read-more:hover span {
+            margin-left: 10px;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-details {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: var(--light);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--secondary);
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .submit-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #5f73bc;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Terminal effect */
+        .terminal {
+            background-color: #0a0a0a;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+            position: relative;
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .terminal-buttons {
+            display: flex;
+            margin-right: 15px;
+        }
+        
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .terminal-btn.red {
+            background-color: #ff5f56;
+        }
+        
+        .terminal-btn.yellow {
+            background-color: #ffbd2e;
+        }
+        
+        .terminal-btn.green {
+            background-color: #27c93f;
+        }
+        
+        .terminal-title {
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .terminal-body {
+            color: #0f0;
+            line-height: 1.5;
+        }
+        
+        .terminal-command {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .terminal-prompt {
+            color: #0f0;
+            margin-right: 10px;
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #0f0;
+            animation: blink 1s infinite;
+            margin-left: 5px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Security badge */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--accent);
+        }
+        
+        .security-badge i {
+            color: var(--accent);
+            margin-right: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .nav-links li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            section h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-text, .about-image {
+                min-width: 100%;
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .skill-category, .project-card, .service-card, .blog-card {
+                min-width: 100%;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">Dev<span>Bot</span>Security</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#services">Services</a></li>
+        
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>Discord Bot Developer & <span>Cybersecurity</span> Enthusiast</h1>
+            <p>Crafting intelligent Discord bots and exploring the depths of digital security. I blend automation with protection to create safer digital spaces.</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+            </div>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <div class="terminal-btn red"></div>
+                        <div class="terminal-btn yellow"></div>
+                        <div class="terminal-btn green"></div>
+                    </div>
+                    <div class="terminal-title">terminal@devbot:~</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-command">
+                        <span class="terminal-prompt">$</span>
+                        <span class="command-text">./initialize_profile</span>
+                    </div>
+                    <div class="terminal-output">
+                        > Loading skills...<br>
+                        > Discord Bot Development: 100%<br>
+                        > Python: 95%<br>
+                        > Network Security: 85%<br>
+                        > Penetration Testing: 80%<br>
+                        > Ready to connect<span class="terminal-cursor"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Security Researcher</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm Parbat Chaulagain a passionate Discord bot developer and cybersecurity enthusiast with a keen interest in creating secure, efficient, and innovative digital solutions. My journey began with a fascination for automation and has evolved into a comprehensive exploration of both development and security.</p>
+                    <p>I specialize in building custom Discord bots that enhance server functionality, automate moderation, and create engaging user experiences. Alongside my development work, I'm constantly deepening my knowledge in cybersecurity, particularly in penetration testing, network security, and ethical hacking.</p>
+                    <p>My unique combination of skills allows me to build not just functional bots, but secure ones that prioritize user data protection and server integrity. I believe in a proactive approach to security and continuously strive to stay ahead of emerging threats and vulnerabilities.</p>
+                    
+                    <div class="security-badge">
+                        <i class="fas fa-code"></i>
+                        <span>Clean Code Advocate</span>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://cdn.discordapp.com/attachments/1347808308513214474/1363475110085922918/profile-pic_1.png?ex=68062aa6&is=6804d926&hm=a46d1b8e8da816e88e3f4f7193ee3b5bca3223937067d467926d1eed980afe7e&" alt="Profile Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>My Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-robot"></i> Discord Bot Development</h3>
+                    <ul class="skill-list">
+                        <li>Discord.py & Discord.js</li>
+                        <li>Bot Architecture & Scaling</li>
+                        <li>Custom Command Systems</li>
+                        <li>API Integration</li>
+                        <li>Automated Moderation</li>
+                        <li>Music & Entertainment Bots</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>Node.js</li>
+                        <li>Database Management</li>
+                        <li>RAPI Development</li>
+                        <li>Git & Version Control</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-shield-alt"></i> Cybersecurity</h3>
+                    <ul class="skill-list">
+                        <li>Network Security</li>
+                        <li>Penetration Testing</li>
+                        <li>Vulnerability Assessment</li>
+                        <li>Web Application Security</li>
+                        <li>Security Auditing</li>
+                        <li>Cryptography Basics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://cdn.discordapp.com/attachments/1345246444831113250/1363500225880133864/Modguardian.png?ex=6806420a&is=6804f08a&hm=5b70b21d3346c95161c44b139997d2cadf6ed8c9d1f4e788841929bce206f5bd&" alt="Project 1">
+                    </div>
+                    <div class="project-content">
+                        <h3>ModGuardian Bot</h3>
+                        <p>An advanced moderation bot with AI-powered content filtering, raid protection, and comprehensive logging system.</p>
+                        <div class="project-tags">
+                            <span class="tag">Discord.py</span>
+                            <span class="tag">Machine Learning</span>
+                            <span class="tag">Security</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Demo</a>
+                            <a href="#" class="https://github.com/parbatzone/modguardian.git">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://cdn.discordapp.com/attachments/1345246444831113250/1363500226224197844/Securechat.png?ex=6806420a&is=6804f08a&hm=7e86f0c8cef8e60b76710410a9d28f53db81505eba0310a3151a8ed427678eb1&" alt="Project 2">
+                    </div>
+                    <div class="project-content">
+                        <h3>SecureChat</h3>
+                        <p>End-to-end encrypted messaging system integrated as a Discord bot, ensuring private communications within servers.</p>
+                        <div class="project-tags">
+                            <span class="tag">Encryption</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Privacy</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Demo</a>
+                            <a href="#" class="https://github.com/parbatzone/securechat.git">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://cdn.discordapp.com/attachments/1345246444831113250/1363500226479915148/vulnscanner.png?ex=6806420a&is=6804f08a&hm=148c9c102117db9e668cdb9943f49c791abf2fdd74466c6765901c0740ad1db9&" alt="Project 3">
+                    </div>
+                    <div class="project-content">
+                        <h3>VulnScanner</h3>
+                        <p>An automated vulnerability scanner for Discord servers that identifies security risks and provides remediation advice.</p>
+                        <div class="project-tags">
+                            <span class="tag">Security</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Demo</a>
+                            <a href="#" class=" https://github.com/parbatzone/vulnscanner.git">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://cdn.discordapp.com/attachments/1345246444831113250/1363500225511297035/CyberEdu_bot.png?ex=6806420a&is=6804f08a&hm=8e7649f523af4598e6b7be066726bc1c5179a0bdfb6abfd274436e417b5c53dc&" alt="Project 4">
+                    </div>
+                    <div class="project-content">
+                        <h3>CyberEdu Bot</h3>
+                        <p>Educational bot that teaches cybersecurity concepts through interactive challenges, quizzes, and resources.</p>
+                        <div class="project-tags">
+                            <span class="tag">Education</span>
+                            <span class="tag">Interactive</span>
+                            <span class="tag">Node.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Demo</a>
+                            <a href="#" class="https://github.com/parbatzone/CyberEdu-Bot.git">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Services</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Custom Discord Bot Development</h3>
+                    <p>Tailor-made Discord bots designed to meet your specific server needs, from moderation to entertainment and utility functions.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Server Security Audits</h3>
+                    <p>Comprehensive security assessments of your Discord server, identifying vulnerabilities and providing actionable recommendations.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Bot Optimization & Scaling</h3>
+                    <p>Performance tuning and architecture improvements for existing bots to handle growing communities and complex functionalities.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Cybersecurity Consulting</h3>
+                    <p>Expert advice on implementing best security practices for your digital projects, with a focus on Discord ecosystem security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="padding: 60px 20px; background-color: #1e1e1e; color: white; text-align: center;">
+        <h2 style="font-size: 2.5rem; color: #7681ff;">Contact Me</h2>
+        <p style="max-width: 600px; margin: 20px auto;">Let's work together! I'm open to new ideas, collaborations, or just tech talk.</p>
+      
+        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 30px; font-size: 1.1rem;">
+          <p>
+            <img src="https://img.icons8.com/fluency/24/000000/email.png" alt="Email" style="vertical-align: middle; margin-right: 8px;">
+            <a href="limoxlost@gmail.com" style="color: #7681ff;">limoxlost@gmail.com</a>
+          </p>
+          <p>
+            <img src="https://img.icons8.com/color/24/discord-logo.png" alt="Discord" style="vertical-align: middle; margin-right: 8px;">
+            _limox_
+          </p>
+        </div>
+      </section>
+      
